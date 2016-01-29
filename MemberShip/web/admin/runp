@@ -1,0 +1,35 @@
+#!/bin/bash
+
+PYTHON="/neowiz/python/bin/python"
+
+if [ -f $PYTHON ]; then
+  echo "neowiz python"
+  export LD_LIBRARY_PATH=/neowiz/lib
+  export SQLRELAY_CLIENT_TIMEOUT_CONNECT=30
+  export SQLRELAY_CLIENT_TIMEOUT_SHORT=300
+  export SQLRELAY_CLIENT_TIMEOUT_LONG=300
+else
+  echo "system python"
+  PYTHON="/usr/bin/python"
+  export LD_LIBRARY_PATH=/usr/lib
+fi
+
+
+SCRIPT="/home/m3/dev/web/admin/runp.py"
+
+
+case $1 in
+  start)
+    $PYTHON $SCRIPT &
+    ;;
+
+  stop)
+    pkill -f $SCRIPT
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}" >&2
+    ;;
+
+esac
+

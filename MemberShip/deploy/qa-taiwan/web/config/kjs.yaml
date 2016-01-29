@@ -1,0 +1,106 @@
+# admin service
+admin:
+  host: 10.30.162.194
+  port: 7000
+  debug: true
+  upload_path: /home/kjs/projects/M3ARPG/MemberShip/web/admin/app/static/upload/
+  secret_key: '309rjdfpjasdrj03q9jfdasr023wwfjsdafpjsd'
+
+  log: 
+    level: debug
+    filename: /home/kjs/projects/M3ARPG/MemberShip/web/log/admin.log
+
+
+# membership service
+kjs-membership:
+  debug: true
+  secret_key: '309rjdfpjasdrj03q9jfdasr023wwfjsdafpjsd'
+  expire_time: 3600 # sec
+  update_interval: 60 # sec
+
+  log:
+    level: debug
+    filename: /home/kjs/projects/M3ARPG/MemberShip/web/log/membership.log
+
+  app:
+    id: 1
+    key: 'fad8bea2661bb19f03e2324f3359a14f01e3415e'
+    secret: '72b919a4f465a17a92dae5c6a8b735fd388df4c670ca1425bec69de9a5ec78a3'
+
+
+# push service
+kjs-push:
+  debug: true
+  secret_key: '309rjdfpjasdrj03q9jfdasr023wwfjsdafpjsd'
+  update_interval: 60 # sec
+
+  log:
+    level: debug
+    filename: /home/kjs/projects/M3ARPG/MemberShip/web/log/push.log
+
+  gcm:
+    url: 'https://gcm-http.googleapis.com/gcm/send'
+
+
+
+push:
+  url: 'http://10.30.76.13:7300/api'
+
+
+
+mongodb:
+  host: 'localhost'
+  port: 27017
+  db: 'ms-log'
+
+
+# async task manager with Celery
+celery:
+  broker_url: redis://localhost/0
+  backend_url: redis://localhost/0
+  result_backend: redis://localhost/0
+  task_serializer: json
+  accept_content: ['json']
+  timezone: Asia/Seoul
+  enable_utc: true
+  redis_max_connections: 20
+
+
+redis-monitor:
+  host: localhost
+  port: 6379
+  db: 7
+
+
+redis-members:
+  - host: localhost
+    port: 6379
+    db: 14
+
+  - host: localhost
+    port: 6379
+    db: 15
+
+
+# sqlrelay servers
+sqlrelays:
+  - host: localhost
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: localhost
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: localhost
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: localhost
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+

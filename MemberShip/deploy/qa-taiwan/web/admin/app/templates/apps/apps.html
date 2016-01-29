@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>애플리케이션 정보</h3>
+</div>
+
+<!-- New tabs -->
+<ul class="nav nav-tabs">
+  <li><a href="/apps/new">신규 등록</a></li>
+</ul>
+
+{% if apps %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+	<thead>
+	<tr>
+		<th class="span1">&nbsp;</th>
+		<th>App ID <i class="fa fa-sort"></th>
+		<th>App Name <i class="fa fa-sort"></th>
+		<th>App Key <i class="fa fa-sort"></th>
+		<th>Reg Date <i class="fa fa-sort"></th>
+		<th>Status <i class="fa fa-sort"></th>
+	</tr>
+	</thead>
+
+	<tbody>
+	{% for app in apps %}
+	<tr>
+		<td>
+			<a class="icon" href="/apps/edit/{{ app.app_id }}">
+				<i class="icon-pencil"></i>
+			</a>
+			<form class="icon" method="GET" action="/apps/delete/{{ app.app_id }}">
+				<button onclick="return confirm('이 애플리케이션을 삭제하시겠습니까?');">
+					<i class="icon-remove"></i>
+				</button>
+			</form>
+		</td>
+		<td><a href="/apps/{{ app.app_id }}">{{ app.app_id }}</a></td>
+		<td>{{ app.app_name }}</a></td>
+		<td>{{ app.app_key }}</a></td>
+		<td>{{ app.reg_date }}</a></td>
+		<td>{{ app.status }}</a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+
+</table>
+</div>
+
+{% else %}
+
+<p>등록된 애플리케이션이 없습니다.</p>
+
+{% endif %}
+
+{% endblock %}

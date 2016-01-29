@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>Sitemap</h3>
+</div>
+
+{% if rules %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+  <tr>
+    <th>{{ _('URL') }} <i class="fa fa-sort"></th>
+    <th>{{ _('END POINT') }} <i class="fa fa-sort"></th>
+    <th>{{ _('METHODS') }} <i class="fa fa-sort"></th>
+    <th>{{ _('DEFAULTS') }}</th>
+    <th>{{ _('ARGUMENTS') }}</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {% for rule in rules %}
+  <tr>
+    <td>{{ rule }}</td>
+    <td>{{ rule.endpoint }}</td>
+    <td>{{ rule.methods }}</td>
+    <td>{{ rule.defaults }}</td>
+    <td>{{ rule.arguments }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% else %}
+
+<p>{{ _('The information does not exist') }}</p>
+
+{% endif %}
+
+{% endblock %}

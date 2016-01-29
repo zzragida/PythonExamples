@@ -1,0 +1,41 @@
+@startuml
+
+title 멤버쉽 서비스
+
+participant Client
+participant Facebook
+participant "MemberShip SDK" as MSSDK
+participant "MemberShip API Server" as MSServer
+participant Server
+
+
+== 익명로그인 ==
+
+Client -> MSSDK: 로그인 API
+MSSDK -> MSServer: 로그인
+MSSDK <-- MSServer: 로그인 결과 + 멤버쉽 access_token
+Client <-- MSSDK: 로그인 결과 + 멤버쉽 access_token
+Client -> Server: 로그인 + 멤버쉽 access_token
+Server -> MSServer: 회원 access_token 검증
+Server <-- MSServer: 회원 정보
+Client <-- Server: 로그인 응답
+
+
+== Facebook 연동 로그인 ==
+
+Client -> Facebook: Facebook 로그인
+Client <-- Facebook: Facebook access_token
+Client -> MSSDK: 로그인
+MSSDK -> MSServer: 로그인 + Facebook access_token
+MSServer -> Facebook: Facebook access_token 검증
+MSServer <-- Facebook: Facebook 회원정보
+MSSDK <-- MSServer: 로그인결과 + 멤버쉽 access_token
+Client <-- MSSDK: 로그인결과 + 멤버쉽 access_token
+Client -> Server: 로그인 + 멤버쉽 access_token
+Server -> MSServer: 멤버쉽 access_token 검증
+Server <-- MSServer: 멤버쉽 회원정보
+Client <-- Server: 로그인 응답
+
+
+
+@enduml

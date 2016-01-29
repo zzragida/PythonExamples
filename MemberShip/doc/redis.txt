@@ -1,0 +1,27 @@
+@startuml
+
+title 레디스 서버의 스키마
+
+object MONITOR
+
+MONITOR:"# 점검때만 있는 필드"
+MONITOR:MAINTENANCE = { 'reason':'점검이유', 'end_date':'종료시간'}
+
+MONITOR:"# 접속가능한 멤버쉽 서버 정보"
+MONITOR:AVAIL:MEMBERSHIP = rank (\n    [membership name] = 100 * 사용자 수 / 최대 사용자\n    ... \n)
+
+MONITOR:"# 일정 시간 간격으로 갱신되는 데이터, 갱신 안되면 없어짐"
+MONITOR:MEMBERSHIP:[membership name] = hash (\n    protocol_version : <프로토콜 버전>\n    service_version : <서비스 버전>\n)
+
+
+
+object MEMBERS
+
+MEMBERS:"멤버 아이디 기준으로 클러스터링 됨"
+
+MEMBERS:"# 일정 시간 간격으로 갱신되는 데이터, 갱신 안되면 없어짐"
+MEMBERS:[member id] = access_token
+
+
+
+@enduml

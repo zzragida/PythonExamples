@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>프로세스 현황</h3>
+</div>
+
+
+<!-- ################ 멤버쉽 서비스 ##################### -->
+{% if memberships %}
+
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_membership">
+				<i class="fa fa-shield fa-rotate-270"></i>&nbsp; 
+          멤버쉽 서버({{ memberships.items()|length }})
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_membership" class="panel-collapse collapse in">
+      <div class="panel-body">
+      <table class="table table-bordered table-hover table-striped model-list tablesorter">
+      <thead>
+        <tr>
+  				<th>서비스 이름 <i class="fa fa-sort"></th>
+ 					<th>서비스 포트</th>
+  				<th>사용률 <i class="fa fa-sort"></th>
+  				<th>프로토콜 버전</th>
+        </tr>
+      </thead>
+      <tbody>
+				{% for key, value in memberships.items() %}
+				<tr>
+  				<td>{{ key }}</td>
+  				<td>{{ value['ip'] }}:{{ value['port'] }}</td>
+  				<td>{{ value['usage'] }}%</td>
+  				<td>{{ value['protocol_version'] }}</td>
+				</tr>
+				{% endfor %}
+      </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<p><b>동작하는 멤버쉽 서버가 없습니다</b></p>
+
+{% endif %}
+
+
+<!-- ################ 푸시 서비스 ##################### -->
+{% if pushs %}
+
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_push">
+				<i class="fa fa-shield fa-rotate-270"></i>&nbsp; 
+          푸시 서버({{ pushs.items()|length }})
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_push" class="panel-collapse collapse in">
+      <div class="panel-body">
+      <table class="table table-bordered table-hover table-striped model-list tablesorter">
+      <thead>
+        <tr>
+  				<th>서비스 이름 <i class="fa fa-sort"></th>
+ 					<th>서비스 포트</th>
+  				<th>사용률 <i class="fa fa-sort"></th>
+        </tr>
+      </thead>
+      <tbody>
+				{% for key, value in pushs.items() %}
+				<tr>
+  				<td>{{ key }}</td>
+  				<td>{{ value['ip'] }}:{{ value['port'] }}</td>
+  				<td>{{ value['usage'] }}%</td>
+				</tr>
+				{% endfor %}
+      </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<p><b>동작하는 푸시 서버가 없습니다</b></p>
+
+{% endif %}
+
+
+
+
+
+<!-- ################ 모니터링 레디스 ##################### -->
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_monitoring_redis">
+				<i class="fa fa-shield fa-rotate-270"></i>&nbsp; 
+          모니터링 레디스
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_monitoring_redis" class="panel-collapse collapse in">
+      <div class="panel-body">
+      <table class="table table-bordered table-hover table-striped tablesorter">
+				<tr>
+  				<td>호스트 </td><td>{{ monitor.host }}:{{monitor.port}}</td>
+  				<td>디비 인덱스</td><td>{{ monitor.db }}</td>
+				</tr>
+
+				<tr>
+  				<td>구동일수</td><td>{{ monitor.uptime_in_days }}</td>
+  				<td>버전</td><td>{{ monitor.redis_version }}</td>
+				</tr>
+				<tr>
+  				<td>접속클라이언트</td><td>{{ monitor.connected_clients }}</td>
+  				<td>메모리사용량</td><td>{{ monitor.used_memory_human }}</td>
+				</tr>
+				<tr>
+  				<td>처리된 명령</td><td>{{ monitor.total_commands_processed }}</td>
+  				<td></td><td></td>
+				</tr>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ################ 멤버 레디스 ##################### -->
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_presence_redis">
+				<i class="fa fa-shield fa-rotate-270"></i>&nbsp; 
+          멤버 레디스({{ members|length }})
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_presence_redis" class="panel-collapse collapse in">
+      <div class="panel-body">
+		{% for member in members %}
+      <table class="table table-bordered table-hover table-striped tablesorter">
+				<tr>
+  				<td>호스트 </td><td>{{ member.host }}:{{ member.port }}</td>
+  				<td>디비 인덱스</td><td>{{ member.db }}</td>
+				</tr>
+
+				<tr>
+  				<td>구동일수</td><td>{{ member.uptime_in_days }}</td>
+  				<td>버전</td><td>{{ member.redis_version }}</td>
+				</tr>
+				<tr>
+  				<td>접속클라이언트</td><td>{{ member.connected_clients }}</td>
+  				<td>메모리사용량</td><td>{{ member.used_memory_human }}</td>
+				</tr>
+				<tr>
+  				<td>처리된 명령</td><td>{{ member.total_commands_processed }}</td>
+  				<td></td><td></td>
+				</tr>
+      </table>
+		{% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

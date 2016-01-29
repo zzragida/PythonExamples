@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% import 'lib.html' as lib with context %}
+
+
+{% block body %}
+
+<div class="page-header">
+	<h3>서비스 {{ collection }} 설정 변경(단위. Byte)</h3>
+</div>
+
+
+{% call lib.form_tag() %}
+  {{ lib.render_form_fields(form) }}
+  {{ lib.render_form_buttons(url_for("log.collections")) }}
+{% endcall %}
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/form.js"></script>
+{% endblock %}
+

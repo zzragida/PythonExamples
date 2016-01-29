@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<div class="page-header">
+	<h3>로그 서비스목록</h3>
+</div>
+
+{% if collections %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter"> 
+  <thead>
+    <tr>
+      <th>서비스 번호 <i class="fa fa-sort"></th>
+      <th>이름</th>
+    </tr>
+  </thead>
+
+{%for col in collections %}
+  <tr>
+    <td><a href="/log/collection/{{ col }}">{{ col }}</a></td>
+    <td>서비스 #{{ col }} 의 로그 내용 </td>
+  </tr>
+{% endfor %}
+ 
+</table>
+</div>
+
+{% else %}
+<p>검색할 로그가 존재하지 않습니다.</p>
+{% endif %}
+
+{% endblock %}

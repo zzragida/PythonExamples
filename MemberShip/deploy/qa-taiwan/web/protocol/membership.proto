@@ -1,0 +1,191 @@
+package ms;
+
+enum AppStatus
+{
+	APP_STATUS_DISABLE = 0;		// 사용안함
+	APP_STATUS_ENABLE = 1;		// 사용함
+}
+
+enum ProductStatus
+{
+	PRODUCT_STATUS_DISABLE = 0;	// 사용안함
+	PRODUCT_STATUS_ENABLE = 1;	// 사용함
+}
+
+enum PaymentStatus
+{
+	PAYMENT_STATUS_PURCHASED = 1;			// 구매함
+	PAYMENT_STATUS_CANCELED = 2;			// 구매취소함
+	PAYMENT_STATUS_EFFECTUATED = 10;	// 효력지급됨
+}
+
+enum MemberStatus
+{
+	MEMBER_STATUS_INIT = 0;			// 최초 생성 상태
+	MEMBER_STATUS_NORMAL = 1;		// 정상
+	MEMBER_STATUS_BLOCKED = 2;	// 사용제한
+	MEMBER_STATUS_DROP_OUT = 3;	// 탈퇴
+}
+
+enum DevicePlatform
+{
+	DEVICE_PLATFORM_ANDROID = 10;
+	DEVICE_PLATFORM_IOS = 20;
+}
+
+enum ServicePlatform
+{
+	SERVICE_PLATFORM_PLAYSTORE = 10;
+	SERVICE_PLATFORM_APPSTORE = 20;
+	SERVICE_PLATFORM_GAMEFLIER = 30;
+}
+
+// Reference: https://developers.google.com/analytics/devguides/platform/currencies
+enum Currency
+{
+	CURRENCY_USD = 0;		// US Dollars
+	CURRENCY_KRW = 1;		// South Korean Won
+	CURRENCY_JPY = 2;		// Japanese Yen
+	CURRENCY_TWD = 3;		// New Taiwan Dollar
+}
+
+enum HistoryMember
+{
+	HISTORY_MEMBER_ACCESS = 1;	// 시스템 접근
+	// 디바이스플랫폼(int0), 서비스플랫폼(int1), 페이스북아이디(int2), udid(str0)
+	HISTORY_MEMBER_PAYMENT = 2;	// 상품구매
+	// 서비스플랫폼(int0), 구매상태(int1), 결제아이디(int2), 인앱아이디(str0)
+	HISTORY_MEMBER_PUSH = 3;		// 푸시설정
+	// ONOFF(int0)
+}
+
+
+enum MessageType
+{
+	MEMBERS 				 = 10;	// 회원정보 요청
+	TOKEN						 = 20;	// Access Token 갱신
+	PAYMENT		 			 = 30;	// 결제요청
+	PUSH_ALLOW 			 = 40;	// 푸시알림 설정
+}
+
+message Version
+{
+	optional uint32 protocol = 1 [default = 150611];
+}
+
+message Request
+{
+	message Members
+	{
+		message Facebook
+		{
+			required uint64 id = 1;							// Unique Facebook ID
+			required string access_token = 2;
+			optional string email = 3;
+		}
+
+		required string app_key = 1;
+		required string udid = 2;
+		required DevicePlatform device_platform = 3;
+		required ServicePlatform service_platform = 4;
+
+		optional string gcm_token = 9;
+		optional Facebook facebook = 10;
+	}
+
+	message Token
+	{
+		required string app_key = 1;
+		required string udid = 2;
+		required DevicePlatform device_platform = 3;
+		required ServicePlatform service_platform = 4;
+	}
+
+	message Payment
+	{
+		message PlayStore
+		{
+			required string order_id = 1;
+			required string package_name = 2;
+			required uint32 purchase_time = 3;
+			required uint32 purchase_state = 4;
+			required string purchase_token = 5;
+			required string developer_payload = 6;
+			required string signature = 7;
+			required string original_json = 8;
+		}
+	
+		message AppStore
+		{
+			required string order_id = 1;
+			required string package_name = 2;
+			required uint32 purchase_time = 3;
+			required uint32 purchase_state = 4;
+			required string purchase_token = 5;
+			required string developer_payload = 6;
+			required string signature = 7;
+			optional string appstore_name = 8;
+			optional string receipt = 9;
+		}
+
+		message GameFlier
+		{
+			required string order_id = 1;
+		}
+
+		required string access_token = 1;
+		required ServicePlatform service_platform = 2;
+		required string inapp_id = 3;
+
+		optional PlayStore playstore = 10;
+		optional AppStore appstore = 20;
+		optional GameFlier gameflier = 30;
+	}
+
+	message PushAllow
+	{
+		required string access_token = 1;
+	}
+
+	required MessageType	type = 1;
+
+	optional Members 			members = 10;
+
+	optional Token				token = 20;
+
+	optional Payment			payment = 30;
+
+	optional PushAllow		push_allow = 40;
+}
+
+
+message Response
+{
+	message Payment
+	{
+		// TODO: 추가적으로 필요한 결제정보 확인
+		required ServicePlatform service_platform = 1;
+		required uint64 payment_id = 2;
+		required string order_id = 3;
+		required string developer_payload = 4;
+		required string purchase_token = 5;
+		required string inapp_id = 6;
+	}
+
+	message Members
+	{
+		required uint64 member_id = 1;					// 멤버쉽 아이디
+		required string developer_payload = 2;	// 결제검증 정보
+		repeated Payment payments = 3;					// 미완료 결제정보
+	}
+
+	required MessageType	type = 1;
+	required string				access_token = 2;
+	required uint32				expire_time = 3;
+
+	optional Members			members = 10;
+
+	optional Payment			payment = 30;
+}
+
+

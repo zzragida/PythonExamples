@@ -1,0 +1,74 @@
+# admin service
+## web/admin
+dev-m3-admin:
+  host: 10.30.76.18
+  port: 8080
+  debug: true
+  upload_path: /home/m3/dev/web/admin/app/static/upload/
+  secret_key: '309rjdfpjasdrj03q9jfdasr023wwfjsdafpjsd'
+
+  log: 
+    level: debug
+    filename: /home/m3/dev/web/log/admin.log
+
+
+# membership service
+## web/membership
+dev-m3-membership:
+  debug: true
+  secret_key: '309rjdfpjasdrj03q9jfdasr023wwfjsdafpjsd'
+  expire_time: 3600 # sec
+
+  log:
+    level: debug
+    filename: /home/m3/dev/web/log/membership.log
+
+  app:
+    id: 1
+    key: 'ca4b0dd7fd262f3909ddb40f33a3493d41243112'
+    secret: '9c03cc6056f044f3ae51f39b70ad02538c27c36724370ed36f0dcbd93cca313a'
+
+
+mongodb:
+  host: localhost
+  port: 27017
+  db: 'ms-log'
+
+
+redis-monitor:
+  host: localhost
+  port: 6379
+  db: 7
+
+
+redis-members:
+  - host: localhost
+    port: 6379
+    db: 14
+
+  - host: localhost
+    port: 6379
+    db: 15
+
+
+# sqlrelay servers
+sqlrelays:
+  - host: 192.168.122.190
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: 192.168.122.190
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: 192.168.122.190
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass
+
+  - host: 192.168.122.190
+    port: 6004
+    user: sqlruser
+    pass: sqlrpass

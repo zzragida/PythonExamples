@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block extra_head %}
+<meta http-equiv="Pragma" content="no-cache">
+<link href="/static/css/log.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <h3>서비스 #{{ collection }} 로그정보</h3>
+</div>
+
+
+{%if records %}
+
+		<form role="form">
+      <div class="form-group">
+        <input type="text" class="form-control" name="find" placeholder="검색어"/>
+      </div>
+      <button type="submit" class="btn btn-default">검색</button>
+    </form>
+
+	{{ pagination.links|safe }}
+
+    <table border="1" id="log_table">
+        <tr>
+            <th>Time</th>
+            <th>Pid</th>
+            <th>Level</th>
+            <th>Message</th>
+            <th>Host</th>
+            <th>Where</th>
+            <th>Name</th>
+        </tr>
+    {%for r in records %}
+        <tr class="{{ r.level }}{{ loop.cycle('', '-alt') }}">
+            <td>{{ r.time }}</td>
+            <td><a href="{{uri}}?pid={{ r.pid }}">{{ r.pid }}</a></td>
+            <td><a href="{{uri}}?level={{ r.level }}">{{ r.level }}</a></td>
+            <td style="text-align:left;">
+                <pre>{{ r.message.replace("\n", "<br>")|safe }}</pre>
+            </td>
+            <td>{{ r.host }}</td>
+            <td width=15% style="text-align:left;word-break:break-all">
+                {{ r.pathname }}:{{ r.lineno }}
+            </td>
+            <td>
+                <a href="{{uri}}?name={{ r.name }}">{{ r.name }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+	{{ pagination.links|safe }}
+
+{% else %}
+    <p>No such entry found.</p>
+{% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>{{ _("RELOAD") }}</h3>
+</div>
+
+{% if results %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+  <tr>
+    <th>{{ _("SERVICE NAME") }} <i class="fa fa-sort"></th>
+    <th>{{ _("URL") }} <i class="fa fa-sort"></th>
+    <th>{{ _("STATUS CODE") }} <i class="fa fa-sort"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {% for result in results %}
+  <tr>
+    <td>{{ result.name }}</td>
+    <td>{{ result.url }}</td>
+    <td>{{ result.status_code }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% else %}
+
+<p>{{ _('The information does not exist') }}</p>
+
+{% endif %}
+
+{% endblock %}

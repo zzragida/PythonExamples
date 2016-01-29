@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "헤더 Test"
+trial test_header
+
+echo "멤버요청 Test"
+trial test_members
+
+echo "토큰요청 Test"
+trial test_token
+
+echo "PING Test"
+trial test_ping
+
+echo "푸시설정 Test"
+trial test_push
+
+echo "결제 Test"
+trial test_payment
+

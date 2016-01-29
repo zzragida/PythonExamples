@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>Admin</h3>
+</div>
+
+{% if admins %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+  <tr>
+		<th class="span1">&nbsp;</th>
+    <th>{{ _('ADMIN ID') }} <i class="fa fa-sort"></th>
+    <th>{{ _('PASSWORD') }} <i class="fa fa-sort"></th>
+    <th>{{ _('ACCESS APPS') }} <i class="fa fa-sort"></th>
+    <th>{{ _('REG DATE') }} <i class="fa fa-sort"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {% for admin in admins %}
+  <tr>
+		<td>
+			<a class="icon" href="">
+				<i class="icon-pencil"></i>
+			</a>
+			<form class="icon" method="GET" action="">
+				<button onclick="return confirm('');">
+					<i class="icon-remove"></i>
+				</button>
+			</form>
+		</td>
+    <td>{{ admin.admin_id }}</td>
+    <td>{{ admin.password }}</td>
+    <td>{{ admin.access_apps }}</td>
+    <td>{{ admin.reg_date }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% else %}
+
+<p>{{ _('The information does not exist') }}</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CELERY="/neowiz/python/bin/celery"
+
+if [ -f $CELERY ]; then
+  echo "neowiz celery "
+  export LD_LIBRARY_PATH=/neowiz/lib
+  export SQLRELAY_CLIENT_TIMEOUT_CONNECT=30
+else
+  echo "system celery "
+  CELERY="/usr/local/bin/celery"
+fi
+
+
+case $1 in
+	start)
+		$CELERY -A app.tasks worker --loglevel=info &
+		;;
+
+	stop)
+		pkill -f $CELERY
+		;;
+	
+	*)
+		echo "Usage: $0 {start|stop}" >&2
+		;;
+
+esac

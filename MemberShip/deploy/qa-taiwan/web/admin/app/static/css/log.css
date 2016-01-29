@@ -1,0 +1,105 @@
+#log_table
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+width:100%;
+border-collapse:collapse;
+/*table-layout:fixed;*/
+}
+
+.pagination
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+width:100%;
+padding-top:4px;
+padding-bottom:5px;
+}
+
+#log_table td, #log_table th
+{
+font-size:0.7em;
+border:1px solid #98bf21;
+padding:1px 2px 2px 2px;
+text-align:center;
+overflow:hidden;
+text-overflow: ellipsis;
+}
+
+#log_table th
+{
+font-size:1.2em;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#A7C942;
+}
+
+#log_table tr.info td
+{
+color:#000000;
+background-color:#FFFFFF;
+}
+#log_table tr.info-alt td
+{
+color:#000000;
+background-color:#EAEAEA;
+}
+
+
+#log_table tr.error td
+{
+color:#000000;
+background-color:#FF0000;
+}
+#log_table tr.error-alt td
+{
+color:#000000;
+background-color:#FF5555;
+}
+
+#log_table tr.debug td
+{
+color:#000000;
+background-color:#FFFFE0;
+}
+#log_table tr.debug-alt td
+{
+color:#000000;
+background-color:#EEEED1;
+}
+
+
+#log_table tr.critical td
+{
+color:#000000;
+background-color:#FF00FF;
+}
+#log_table tr.critical-alt td
+{
+color:#000000;
+background-color:#EE00EE;
+}
+
+
+#log_table tr.warning td
+{
+color:#000000;
+background-color:#FFCCCC;
+}
+#log_table tr.warning-alt td
+{
+color:#000000;
+background-color:#CDCCCC;
+}
+
+
+#log_table tr.undefined td
+{
+color:#000000;
+background-color:#00FF00;
+}
+#log_table tr.undefined-alt td
+{
+color:#000000;
+background-color:#00CD00;
+}
+
+

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>푸시정보</h3>
+</div>
+
+{% if push_list %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+    <tr>
+      <th>GCM Sender ID <i class="fa fa-sort"></th>
+      <th>GCM Server API Key <i class="fa fa-sort"></th>
+      <th>대상멤버 <i class="fa fa-sort"></th>
+      <th>메시지 <i class="fa fa-sort"></th>
+      <th>발송시간 <i class="fa fa-sort"></th>
+    </tr>
+  </thead>
+
+{% for push in push_list %}
+<tr>
+  <td>{{ push.gcm_sender_id }}</td>
+  <td>{{ push.gcm_server_api_key }}</td>
+  <td>{{ push.member_id }}</td>
+  <td>{{ push.message }}</td>
+  <td>{{ push.time }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+{% else %}
+
+<p>등록된 푸시메시지가 없습니다.</p>
+
+{% endif %}
+
+{% endblock %}

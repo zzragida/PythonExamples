@@ -1,0 +1,23 @@
+#!/bin/bash
+
+case $1 in
+  start)
+    /neowiz/msh/web/membership/membership1 start
+    sleep 1
+    /neowiz/msh/web/membership/membership2 start
+    sleep 1
+    ;;
+
+	stop)
+    /neowiz/msh/web/membership/membership1 stop
+    sleep 1
+    /nwowiz/msh/web/membership/membership2 stop
+    sleep 1
+		;;
+
+  *)
+    echo "Usage: $0 {start|stop)" >&2
+    ;;
+
+esac
+

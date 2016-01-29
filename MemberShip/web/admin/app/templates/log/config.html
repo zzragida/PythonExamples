@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<div class="page-header">
+	<h3>로그 서비스설정</h3>
+</div>
+
+{% if collections %}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter"> 
+  <thead>
+    <tr>
+			<th class="span1">&nbsp;</th>
+      <th>테이블명 <i class="fa fa-sort"></th>
+      <th>컬럼수 <i class="fa fa-sort"></th>
+      <th>용량(B) <i class="fa fa-sort"></th>
+    </tr>
+  </thead>
+
+{%for col in collections %}
+  <tr>
+    <td>
+			<a href="{{ url_for('log.config_edit', collection = col.name) }}">
+				<i class="icon-pencil"></i>
+			</a>
+			<form class="icon" method="POST" action="{{ url_for('log.delete', collection = col.name) }}">
+      <button onclick="return confirm('이 테이블을 삭제하시겠습니까?');">
+        <i class="icon-remove"></i>
+      </button>
+    	</form>
+		</td>
+		<td>{{ col.name }}</td>
+    <td>{{ col.count }}</td>
+    <td>{{ col.size }}</td>
+  </tr>
+{% endfor %}
+ 
+</table>
+</div>
+
+{% else %}
+<p>설정할 로그 테이블 정보가 존재하지 않습니다.</p>
+{% endif %}
+
+{% endblock %}

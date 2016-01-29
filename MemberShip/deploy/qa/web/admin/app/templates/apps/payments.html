@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>애플리케이션({{ app_id }}) 결제정보</h3>
+</div>
+
+<!-- New tabs -->
+<ul class="nav nav-tabs">
+  <li><a href="/apps/{{ app_id }}">돌아가기</a></li>
+</ul>
+
+{% if payments %}
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#search">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          검색하기
+        </a>
+      </h4>
+    </div>
+    <div id="search" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form role="form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="member_id" placeholder="멤버쉽 아이디"/><br>
+          <input type="text" class="form-control" name="product_id" placeholder="상품 아이디"/><br>
+        </div>
+        <button type="submit" class="btn btn-default">검색</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{ pagination.links|safe }}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+	<thead>
+	<tr>
+		<th class="span1">&nbsp;</th>
+		<th>Payment ID <i class="fa fa-sort"></th>
+		<th>App ID <i class="fa fa-sort"></th>
+		<th>Member ID <i class="fa fa-sort"></th>
+		<th>Product ID<i class="fa fa-sort"></th>
+		<th>Product Price<i class="fa fa-sort"></th>
+		<th>Service Platform<i class="fa fa-sort"></th>
+		<th>Status <i class="fa fa-sort"></th>
+		<th>Reg Date <i class="fa fa-sort"></th>
+	</tr>
+	</thead>
+
+	<tbody>
+	{% for payment in payments %}
+	<tr>
+		<td>
+			<a class="icon" href="/apps/{{ app_id }}/payments/{{ payment.payment_id }}">
+        <i class="icon-tasks"></i>
+      </a>
+		</td>
+		<td>{{ payment.payment_id }}</a></td>
+		<td>{{ payment.app_id }}</a></td>
+		<td>{{ payment.member_id }}</a></td>
+		<td>{{ payment.product_id }}</a></td>
+		<td>{{ payment.product_price }}</a></td>
+		<td>{{ payment.service_platform }}</a></td>
+		<td>{{ payment.status }}</a></td>
+		<td>{{ payment.reg_date }}</a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+
+</table>
+</div>
+
+{{ pagination.links|safe }}
+
+{% else %}
+
+<p>등록된 결제정보가 없습니다.</p>
+
+{% endif %}
+
+{% endblock %}

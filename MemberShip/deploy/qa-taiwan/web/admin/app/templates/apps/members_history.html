@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% import 'lib.html' as lib with context %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>회원({{ member_id }}) 이력정보</h3>
+</div>
+
+<ul class="nav nav-tabs">
+	<li><a href="/apps/{{ app_id }}/members/{{ member_id }}">돌아가기</a></li>
+</ul>
+
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#access" data-toggle="tab">시스템접근({{ access|length }})</a></li>
+  <li><a href="#payment" data-toggle="tab">결제정보({{ payment|length }})</a></li>
+  <li><a href="#push" data-toggle="tab">푸시설정({{ push|length }})</a></li>
+</ul>
+
+<div class="tab-content">
+
+	<!-- access -->
+	<div class="tab-pane active" id="access">
+  {% if access %}
+  <div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+    <tr>
+    	<th>Member <i class="fa fa-sort"></th>
+    	<th>Device Platform <i class="fa fa-sort"></th>
+    	<th>Service Platform <i class="fa fa-sort"></th>
+    	<th>Facebook <i class="fa fa-sort"></th>
+    	<th>UDID <i class="fa fa-sort"></th>
+    	<th>Reg Date <i class="fa fa-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+ 	{% for data in access %}
+ 	<tr class="active">
+    <td>{{ member_id }}</td>
+    <td>{{ data.int0 }}</td>
+    <td>{{ data.int1 }}</td>
+    <td>{{ data.int2 }}</td>
+    <td>{{ data.str0 }}</td>
+    <td>{{ data.reg_date }}</td>
+ 	</tr>
+ 	{% endfor %}
+  </tbody>
+  </table>
+  </div>
+  {% endif %}
+  </div>
+
+	<!-- payment -->
+	<div class="tab-pane" id="payment">
+  {% if payment %}
+  <div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+    <tr>
+    	<th>Member <i class="fa fa-sort"></th>
+    	<th>Service Platform <i class="fa fa-sort"></th>
+    	<th>Inapp ID <i class="fa fa-sort"></th>
+    	<th>Payment ID <i class="fa fa-sort"></th>
+    	<th>Status <i class="fa fa-sort"></th>
+    	<th>Reg Date <i class="fa fa-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+ 	{% for data in payment %}
+ 	<tr class="active">
+    <td>{{ member_id }}</td>
+    <td>{{ data.int0 }}</td>
+    <td>{{ data.str0 }}</td>
+    <td>{{ data.int2 }}</td>
+    <td>{{ data.int1 }}</td>
+    <td>{{ data.reg_date }}</td>
+ 	</tr>
+ 	{% endfor %}
+  </tbody>
+  </table>
+  </div>
+  {% endif %}
+  </div>
+
+	<!-- push -->
+	<div class="tab-pane" id="push">
+  {% if push %}
+  <div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped tablesorter">
+  <thead>
+    <tr>
+    	<th>Member <i class="fa fa-sort"></th>
+    	<th>ON/OFF <i class="fa fa-sort"></th>
+    	<th>Reg Date <i class="fa fa-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+ 	{% for data in push %}
+ 	<tr class="active">
+    <td>{{ member_id }}</td>
+    <td>{{ data.int0 }}</td>
+    <td>{{ data.reg_date }}</td>
+ 	</tr>
+ 	{% endfor %}
+  </tbody>
+  </table>
+  </div>
+  {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

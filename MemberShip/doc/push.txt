@@ -1,0 +1,45 @@
+@startuml
+
+title 멤버쉽 서비스
+
+participant Client
+participant "Google/Apple" as PushAgent
+participant "MemberShip API Server" as MSServer
+participant PushServer
+participant "Game Admin" as GM
+participant "Game Server" as Gateway
+
+
+== 푸쉬 등록(GM툴) ==
+
+GM -> MSServer: 푸시 스케쥴등록
+MSServer --> PushServer: 푸시등록
+PushServer -> PushServer: 스케쥴링
+PushServer -> PushAgent: 푸시발송요청
+PushServer <-- PushAgent: 푸시발송응답
+PushAgent -> Client: 푸시발송
+
+
+== 푸쉬 등록(게임로직) ==
+
+Gateway -> MSServer: 푸시 스케쥴등록
+MSServer --> PushServer: 푸시등록
+PushServer -> PushServer: 스케쥴링
+PushServer -> PushAgent: 푸시발송요청
+PushServer <-- PushAgent: 푸시발송응답
+PushAgent -> Client: 푸시발송
+
+
+== 푸쉬 등록(클라이언트) ==
+
+Client -> Gateway: 푸시요청
+Gateway -> MSServer: 푸시 스케쥴등록
+MSServer --> PushServer: 푸시등록
+PushServer -> PushServer: 스케쥴링
+PushServer -> PushAgent: 푸시발송요청
+PushServer <-- PushAgent: 푸시발송응답
+Client <-- Gateway: 푸시요청응답
+PushAgent -> Client: 푸시발송
+
+
+@enduml

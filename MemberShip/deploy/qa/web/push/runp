@@ -1,0 +1,49 @@
+#!/bin/bash
+
+PYTHON="/neowiz/python/bin/python"
+
+if [ -f $PYTHON ]; then
+  echo "using neowiz python"
+  export LD_LIBRARY_PATH=/neowiz/lib
+  export SQLRELAY_CLIENT_TIMEOUT_CONNECT=30
+  export SQLRELAY_CLIENT_TIMEOUT_SHORT=300
+  export SQLRELAY_CLIENT_TIMEOUT_LONG=300
+else
+  echo "using system python"
+  PYTHON="/usr/local/bin/python"
+  export LD_LIBRARY_PATH=/usr/lib
+fi
+
+
+SCRIPT="/neowiz/msh/web/push/runp.py"
+
+if [ ! -f $SCRIPT ]; then
+	echo "$SCRIPT 스크립트 파일이 존재하지 않습니다"
+	exit -1;
+fi
+
+case $1 in
+  start)
+		if ! [ "$2" ]; then
+			echo "need ip address"
+			exit -1;
+		fi
+
+		if ! [ "$3" ]; then
+			echo "need port number"
+			exit -1;
+		fi
+
+		$PYTHON $SCRIPT --host=$2 --port=$3 &
+    ;;
+
+	stop)
+		pkill -f $SCRIPT
+		;;
+
+  *)
+    echo "Usage: $0 {start|stop)" >&2
+    ;;
+
+esac
+

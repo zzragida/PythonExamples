@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% import 'lib.html' as lib with context %}
+
+{% block extra_head %}
+<link href="/static/css/datepicker.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>애플리케이션({{ app_id }}) 상품 등록</h3>
+</div>
+
+<ul class="nav nav-tabls">
+	<li><a href="/apps/{{ app_id }}">돌아가기</a></li>
+</ul>
+
+{% call lib.form_tag() %}
+  {{ lib.render_form_fields(form) }}
+  {{ lib.render_form_buttons() }}
+{% endcall %}
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/bootstrap-datepicker.js"></script>
+<script src="/static/js/form.js"></script>
+{% endblock %}
+

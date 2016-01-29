@@ -1,0 +1,800 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+  <h3>레디스 캐시정보</h3>
+</div>
+
+<!-- ################ 온라인 유저 ##################### -->
+{% if online_users %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_online_user">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          온라인 유저
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_online_user" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>온라인 사용자 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for user in online_users %}
+      <tr>
+        <td>{{ user }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 온라인유저가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 게이트웨이 서버 ##################### -->
+{% if gateways %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_gateway">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          게이트웨이 서버
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_gateway" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>사용량 <i class="fa fa-sort"></th>
+        <th>IP:PORT <i class="fa fa-sort"></th>
+        <th>현재사용자 <i class="fa fa-sort"></th>
+        <th>최대사용자 <i class="fa fa-sort"></th>
+        <th>프로토콜 버전 <i class="fa fa-sort"></th>
+        <th>서비스 버전 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for gateway in gateways %}
+      <tr>
+        <td>{{ gateway.name }}</td>
+        <td>{{ gateway.usage }}</td>
+        <td>{{ gateway.ip }}:{{ gateway.port }}</td>
+        <td>{{ gateway.user }}</td>
+        <td>{{ gateway.max_user }}</td>
+        <td>{{ gateway.protocol_version }}</td>
+        <td>{{ gateway.service_version }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 게이트웨이 서버가 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 룸 서버 ##################### -->
+{% if rooms %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_room">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          룸 서버
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_room" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>사용량 <i class="fa fa-sort"></th>
+        <th>IP:PORT <i class="fa fa-sort"></th>
+        <th>현재방개수 <i class="fa fa-sort"></th>
+        <th>최대방개수 <i class="fa fa-sort"></th>
+        <th>프로토콜 버전 <i class="fa fa-sort"></th>
+        <th>서비스 버전 <i class="fa fa-sort"></th>
+        <th>스테이지서버 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for room in rooms %}
+      <tr>
+        <td>{{ room.name }}</td>
+        <td>{{ room.usage }}</td>
+        <td>{{ room.ip }}:{{ room.port }}</td>
+        <td>{{ room.room }}</td>
+        <td>{{ room.max_room }}</td>
+        <td>{{ room.protocol_version }}</td>
+        <td>{{ room.service_version }}</td>
+        <td>{{ room.stage_ip }}:{{ room.stage_port }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 룸 서버가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 공지사항 ##################### -->
+{% if notices %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_notice">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          공지사항
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_notice" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>공지사항 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for notice in notices %}
+      <tr>
+        <td>{{ notice }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 공지사항이 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 서비스정비 ##################### -->
+{% if maintenances %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_maintenance">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          서비스 정비
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_maintenance" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>서비스정비 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for maintenance in maintenances %}
+      <tr>
+        <td>{{ maintenance }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 서비스정비가 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 친구정보 ##################### -->
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_friend">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          친구정보
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_friend" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>사용자 <i class="fa fa-sort"></th>
+        <th>친구로 지정된 사용자 <i class="fa fa-sort"></th>
+        <th>친구초대응답 <i class="fa fa-sort"></th>
+        <th>친구초대제안 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+				{% for user in friend_users %}
+					{{ user }}
+				{% endfor %}
+				</td>
+        <td>
+				{% for user in friend_friends %}
+					{{ user }}
+				{% endfor %}
+				</td>
+        <td>
+				{% for user in friend_asks %}
+					{{ user }}
+				{% endfor %}
+				</td>
+        <td>
+				{% for user in friend_proposes %}
+					{{ user }}
+				{% endfor %}
+				</td>
+      </tr>
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ################ 대기방 ##################### -->
+{% if readys %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_ready">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          대기방 
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_ready" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>접속정보 <i class="fa fa-sort"></th>
+        <th>상태 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>난이도 <i class="fa fa-sort"></th>
+        <th>유저수 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for room in readys %}
+      <tr>
+        <td>{{ room.key }}</td>
+        <td>{{ room.ip }}:{{ room.port }}</td>
+        <td>{{ room.status }}</td>
+        <td>{{ room.room_id }}</td>
+        <td>{{ room.difficulty }}</td>
+        <td>{{ room.user_count }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 대기방이 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 준비대기/실행중 ##################### -->
+{% if stages %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_waiting">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          준비/실행방
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_waiting" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>스테이지 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>열린서버 <i class="fa fa-sort"></th>
+        <th>게임진행서버 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for stage in stages %}
+			{% if stage.max_player > 1 %}
+      <tr>
+        <td>{{ stage.name }}</td>
+        <td>{{ stage.stage_id }}</td>
+				<td>
+  			{% if waitings[stage.stage_id] %}
+    			{% for waiting in waitings[stage.stage_id] %}
+      			{{ waiting }}<br>
+    			{% endfor %}
+  			{% else %}
+    			None<br>
+    			None<br>
+    			None
+  			{% endif %}
+  			</td>
+  			<td>
+  			{% if playings[stage.stage_id] %}
+    			{% for playing in playings[stage.stage_id] %}
+      			{{ playing }}<br>
+    			{% endfor %}
+  			{% else %}
+    			None<br>
+    			None<br>
+    			None
+  			{% endif %}
+  		</td>
+      </tr>
+			{% endif %}
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 대기/실행정보가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 랭킹 사용자 ##################### -->
+{% if rankers %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_ranker">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          랭킹 사용자
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_ranker" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>사용자아이디 <i class="fa fa-sort"></th>
+        <th>사용자이름 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in rankers %}
+      <tr>
+        <td>{{ ranker.user_id }}</td>
+        <td>{{ ranker.nickname }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 랭킹 사용자가 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 스토리랭킹 총합 ##################### -->
+{% if story_total_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_story_total_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          스토리랭킹 총합
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_story_total_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in story_total_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.user_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 스토리랭킹 총합 정보가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 스토리랭킹 쉬움 ##################### -->
+{% if story_eady_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_story_easy_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          스토리랭킹 쉬움
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_story_easy_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in story_easy_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.user_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 스토리랭킹 쉬움 정보가 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 스토리랭킹 보통 ##################### -->
+{% if story_normal_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_story_normal_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          스토리랭킹 보통
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_story_normal_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in story_normal_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.user_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 스토리랭킹 보통 정보가 없습니다.</p>
+{% endif %}
+
+
+
+<!-- ################ 스토리랭킹 어려움 ##################### -->
+{% if story_hard_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_story_hard_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          스토리랭킹 어려움
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_story_hard_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in story_hard_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.user_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 스토리랭킹 어려움 정보가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ 서바이벌 랭킹 ##################### -->
+{% if survival_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_survival_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          서바이벌 랭킹
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_survival_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>캐릭터아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in survival_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.hero_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 서바이벌 랭킹 정보가 없습니다.</p>
+{% endif %}
+
+
+<!-- ################ PVP 랭킹 ##################### -->
+{% if pvp_rankings %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_pvp_ranking">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          PVP 랭킹
+        </a>
+      </h4>
+    </div>
+    <div id="collapse_pvp_ranking" class="panel-collapse collapse">
+      <div class="panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover model-list tablesorter">
+      <thead>
+      <tr>
+        <th>순위 <i class="fa fa-sort"></th>
+        <th>이름 <i class="fa fa-sort"></th>
+        <th>캐릭터아이디 <i class="fa fa-sort"></th>
+        <th>점수 <i class="fa fa-sort"></th>
+        <th>직업 <i class="fa fa-sort"></th>
+        <th>레벨 <i class="fa fa-sort"></th>
+        <th>의상정보 <i class="fa fa-sort"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for ranker in pvp_rankings %}
+      <tr>
+        <td>{{ ranker.rank }}</td>
+        <td>{{ ranker.nickname }}</td>
+        <td>{{ ranker.hero_id }}</td>
+        <td>{{ ranker.score }}</td>
+        <td>{{ ranker.job }}</td>
+        <td>{{ ranker.level }}</td>
+        <td>{{ ranker.costume_id }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+
+      </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+<p>캐시된 PVP 랭킹 정보가 없습니다.</p>
+{% endif %}
+
+
+
+{% endblock %}

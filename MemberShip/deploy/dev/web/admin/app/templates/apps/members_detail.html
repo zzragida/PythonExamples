@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% if member %}
+
+<div class="page-header">
+	<h3>회원({{ member.member_id }}) 상세정보</h3>
+</div>
+
+<ul class="nav nav-tabs">
+  <li><a href="/apps/{{ member.app_id }}/members">목록보기</a></li>
+  <li><a href="/apps/{{ member.app_id }}/members/{{ member.member_id }}/history">이력보기</a></li>
+</ul>
+
+<table class="table table-striped table-bordered model-list">
+  <tr><td>Member ID</td><td>{{ member.member_id }}</td></tr>
+  <tr><td>App ID</td><td>{{ member.app_id }}</td></tr>
+  <tr><td>UDID</td><td>{{ member.udid }}</td></tr>
+  <tr><td>Device Platform</td><td>{{ member.device_platform }}</td></tr>
+  <tr><td>Service Platform</td><td>{{ member.service_platform }}</td></tr>
+  <tr><td>Push Notification</td><td>{{ member.push_notification }}</td></tr>
+  <tr><td>GCM Token</td><td>{{ member.gcm_token }}</td></tr>
+  <tr>
+		<td>Facebook</td>
+		<td>
+			<table class="table table-striped table-bordered">
+      <tr><td>ID</td><td>{{ member.facebook_id }}</td></tr>
+      <tr><td>Email</td><td>{{ member.facebook_email }}</td></tr>
+			</table>
+		</td>
+	</tr>
+  <tr><td>Status</td><td>{{ member.status }}</td></tr>
+  <tr><td>Reg Date</td><td>{{ member.reg_date }}</td></tr>
+  <tr>
+		<td>Last Information</td>
+		<td>
+			<table class="table table-striped table-bordered">
+      <tr><td>Device Platform</td><td>{{ member.last_device_platform }}</td></tr>
+      <tr><td>Service Platform</td><td>{{ member.last_service_platform }}</td></tr>
+      <tr><td>Login Date</td><td>{{ member.last_login_date }}</td></tr>
+      </table>
+		</td>
+	</tr>
+</table>
+
+{% else %}
+
+<p>등록된 회원이 없습니다</p>
+
+{% endif %}
+
+{% endblock %}

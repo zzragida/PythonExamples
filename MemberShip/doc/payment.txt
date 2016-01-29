@@ -1,0 +1,34 @@
+@startuml
+
+title 멤버쉽 서비스
+
+participant Client
+participant "MemberShip SDK" as MSSDK
+participant Store
+participant "MemberShip API Server" as MSServer
+participant Server
+
+== 결제 ==
+
+Client -> MSSDK: 결제시작
+MSSDK -> MSServer: 결제 트랜잭션 시작요청
+MSSDK <-- MSServer: 결제 트랜잭션 시작응답
+MSSDK -> Store: 결제시도
+MSSDK <-- Store: 결제완료
+MSSDK -> MSServer: 결제검증 요청
+MSServer -> Store: 결제검증 요청
+MSServer <-- Store: 결제검증 확인
+MSSDK <-- MSServer: 결제검증 완료
+Client <-- MSSDK: 결제완료
+
+
+== 결제 효력 지급 ==
+
+Client -> Server: 구매효력지급 요청
+Server -> MSServer: 구매효력 확인 요청
+MSServer -> MSServer: 결제 트랜잭션 완료처리
+Server <-- MSServer: 구매효력 확인 완료
+Client <-- Server: 구매효력지급 완료
+
+
+@enduml

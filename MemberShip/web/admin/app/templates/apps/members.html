@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="page-header">
+	<h3>애플리케이션({{ app_id }}) 회원정보</h3>
+</div>
+
+<!-- New tabs -->
+<ul class="nav nav-tabs">
+  <li><a href="/apps/{{ app_id }}">돌아가기</a></li>
+</ul>
+
+{% if members %}
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#search">
+        <i class="fa fa-shield fa-rotate-270"></i>&nbsp;
+          검색하기
+        </a>
+      </h4>
+    </div>
+    <div id="search" class="panel-collapse collapse">
+      <div class="panel-body">
+      <form role="form">
+        <div class="form-group">
+          <input type="text" class="form-control" name="member_id" placeholder="멤버쉽 아이디"/><br>
+          <input type="text" class="form-control" name="facebook_id" placeholder="페이스북 아이디"/><br>
+        </div>
+        <button type="submit" class="btn btn-default">검색</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{ pagination.links|safe }}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+	<thead>
+	<tr>
+		<th>Member ID <i class="fa fa-sort"></th>
+		<th>UDID <i class="fa fa-sort"></th>
+		<th>Device Platform <i class="fa fa-sort"></th>
+		<th>Service Platform <i class="fa fa-sort"></th>
+		<th>Push Notification <i class="fa fa-sort"></th>
+		<th>Facebook ID <i class="fa fa-sort"></th>
+		<th>Status <i class="fa fa-sort"></th>
+		<th>Reg Date <i class="fa fa-sort"></th>
+	</tr>
+	</thead>
+
+	<tbody>
+	{% for member in members %}
+	<tr>
+		<td><a href="/apps/{{ member.app_id }}/members/{{ member.member_id }}">{{ member.member_id }}</a></td>
+		<td>{{ member.udid }}</a></td>
+		<td>{{ member.device_platform }}</a></td>
+		<td>{{ member.service_platform }}</a></td>
+		<td>{{ member.push_notification }}</a></td>
+		<td>{{ member.facebook_id }}</a></td>
+		<td>{{ member.status }}</a></td>
+		<td>{{ member.reg_date }}</a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+
+</table>
+</div>
+
+{{ pagination.links|safe }}
+
+{% else %}
+
+<p>등록된 회원정보가 없습니다.</p>
+
+{% endif %}
+
+{% endblock %}
